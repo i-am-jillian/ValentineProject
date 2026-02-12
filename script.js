@@ -10,18 +10,17 @@ const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
 // Click Envelope
-
 envelope.addEventListener("click", () => {
     envelope.style.display = "none";
-    letter.style.display = "flex";
+    letter.classList.add("show"); // Add show class instead of inline style
 
-    setTimeout( () => {
+    setTimeout(() => {
         document.querySelector(".letter-window").classList.add("open");
-    },50);
+    }, 50);
 });
 
-// Logic to move the NO btn
-
+// Logic to move the NO btn (uncomment if you want this feature)
+/*
 noBtn.addEventListener("mouseover", () => {
     const min = 200;
     const max = 200;
@@ -35,38 +34,24 @@ noBtn.addEventListener("mouseover", () => {
     noBtn.style.transition = "transform 0.3s ease";
     noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
 });
+*/
 
-// Logic to make YES btn to grow
+// Logic to make YES btn grow
+let yesScale = 1;
 
-// let yesScale = 1;
+yesBtn.style.transformOrigin = "center center";
+yesBtn.style.transition = "transform 0.25s ease";
 
-// yesBtn.style.position = "relative"
-// yesBtn.style.transformOrigin = "center center";
-// yesBtn.style.transition = "transform 0.3s ease";
-
-// noBtn.addEventListener("click", () => {
-//     yesScale += 2;
-
-//     if (yesBtn.style.position !== "fixed") {
-//         yesBtn.style.position = "fixed";
-//         yesBtn.style.top = "50%";
-//         yesBtn.style.left = "50%";
-//         yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-//     }else{
-//         yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-//     }
-// });
+noBtn.addEventListener("click", () => {
+    yesScale = Math.min(yesScale + 0.35, 3.0); // grows but capped
+    yesBtn.style.transform = `scale(${yesScale})`;
+});
 
 // YES is clicked
-
 yesBtn.addEventListener("click", () => {
-    title.textContent = "Yippeeee!";
-
+    title.textContent = "Yayyyyy!";
     catImg.src = "cat_dance.gif";
-
     document.querySelector(".letter-window").classList.add("final");
-
     buttons.style.display = "none";
-
     finalText.style.display = "block";
 });
